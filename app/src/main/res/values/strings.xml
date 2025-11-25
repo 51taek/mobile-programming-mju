@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">WeatherTune</string>
+    <string name="app_icon">App Icon</string>
+    <string name="settings">설정</string>
+    <string name="weather_icon">날씨 아이콘</string>
+    <string name="playlist_cover">플레이리스트 커버</string>
+    <string name="playlist_icon">플레이리스트 아이콘</string>
+</resources>
