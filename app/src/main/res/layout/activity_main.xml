@@ -167,7 +167,7 @@
             <!-- 플레이리스트 카드 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
+                android:layout_height="200dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
@@ -197,8 +197,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical"
-                        android:padding="24dp"
-                        android:gravity="center">
+                        android:padding="30dp"
+                        android:gravity="bottom">
 
                         <!-- 플레이리스트 제목 -->
                         <TextView
@@ -206,11 +206,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="맑은 오전 감성 팝"
-                            android:textSize="32sp"
+                            android:textSize="25sp"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
                             android:gravity="center"
-                            android:layout_marginBottom="12dp" />
+                            android:layout_marginBottom="6dp" />
 
                         <!-- 플레이리스트 설명 -->
                         <TextView
@@ -221,7 +221,7 @@
                             android:textSize="16sp"
                             android:textColor="#E1BEE7"
                             android:gravity="center"
-                            android:layout_marginBottom="32dp" />
+                            android:layout_marginBottom="16dp" />
 
                         <!-- 지금 듣기 버튼 -->
                         <Button
