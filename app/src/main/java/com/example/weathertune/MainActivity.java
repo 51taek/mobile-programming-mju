@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_KEY = BuildConfig.WEATHER_API_KEY;
 
     private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability;
-    private ImageView ivWeatherIcon, refreshBtn, gpsBtn;
+    private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
 
     FusedLocationProviderClient fusedLocationClient;
 
@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnSettings = findViewById(R.id.btnSettings);
         tvLocation = findViewById(R.id.tvLocation);
         tvTemperature = findViewById(R.id.tvTemperature);
         tvWeatherDescription = findViewById(R.id.tvWeatherDescription);
@@ -64,6 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
         addPressAnimation(refreshBtn);
         addPressAnimation(gpsBtn);
+
+        btnSettings.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+            startActivity(intent);
+        });
 
         refreshBtn.setOnClickListener(v -> {
             refreshBtn.animate().rotationBy(360f).setDuration(800).start();
