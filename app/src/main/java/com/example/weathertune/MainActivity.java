@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     double selectedLat = -1;
     double selectedLon = -1;
     String selectedAddress = null;
+    private String currentWeatherKeyword = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +169,9 @@ public class MainActivity extends AppCompatActivity {
                 // ================================
                 String main = data.current.weather.get(0).main;
                 String desc = data.current.weather.get(0).description;
+
+                //  ★★★★ 날씨 키워드 저장 ★★★★
+                saveWeatherKeyword(desc);
 
                 // ================================
                 // 3) POP(강수확률)
@@ -308,5 +312,14 @@ public class MainActivity extends AppCompatActivity {
             tvLocation.setText(selectedAddress);
             requestWeather(selectedLat, selectedLon, selectedAddress);
         }
+    }
+    // 날씨 키워드 저장
+    private void saveWeatherKeyword(String keyword) {
+        currentWeatherKeyword = keyword;
+    }
+
+    // 날씨 키워드 출력
+    public String getWeatherKeyword() {
+        return currentWeatherKeyword;
     }
 }
