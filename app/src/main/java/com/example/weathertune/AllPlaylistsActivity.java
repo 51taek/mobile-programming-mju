@@ -169,41 +169,51 @@ public class AllPlaylistsActivity extends AppCompatActivity {
         // 맑음
         if (d.contains("맑음")) return "하늘이 맑아요";
 
-        // 구름
-        if (d.contains("구름 조금") || d.contains("튼구름")) return "구름이 조금 끼었어요";
-        if (d.contains("구름 많음")) return "구름이 많아 흐린 편이에요";
-        if (d.contains("흐림")) return "하늘이 흐려요";
+        // 구름 (약간/많음/튼구름/조금/온흐린/구름이 낀)
+        if (d.contains("구름") || d.contains("흐린 하늘") || d.contains("흐린") || d.contains("튼구름")) {
+            if (d.contains("약간") || d.contains("조금") || d.contains("튼구름")) {
+                return "구름이 조금 낀 날씨";
+            }
+            if (d.contains("많음") || d.contains("짙은")) {
+                return "구름이 많은 날씨";
+            }
+            return "하늘이 흐린 날씨";
+        }
 
         // 비
-        if (d.contains("약한 비")) return "가벼운 비가 내려요";
-        if (d.contains("비")) return "비가 오고 있어요";
-        if (d.contains("강한 비") || d.contains("폭우")) return "비가 많이 내리고 있어요";
-
-        // 소나기
-        if (d.contains("소나기")) return "소나기가 지나가고 있어요";
+        if (d.contains("비") || d.contains("rain")) {
+            if (d.contains("약한")) return "가벼운 비가 내리는 날씨";
+            if (d.contains("강한") || d.contains("폭우")) return "비가 많이 내리는 날씨";
+            if (d.contains("소나기")) return "소나기가 오는 날씨";
+            return "비가 오는 날씨";
+        }
 
         // 눈
-        if (d.contains("약한 눈")) return "가볍게 눈이 내려요";
-        if (d.contains("눈")) return "눈이 내리고 있어요";
-        if (d.contains("강한 눈")) return "눈이 많이 내리고 있어요";
+        if (d.contains("눈") || d.contains("snow")) {
+            if (d.contains("약한")) return "가볍게 눈이 내리는 날씨";
+            if (d.contains("강한")) return "눈이 많이 내리는 날씨";
+            return "눈이 내리는 날씨";
+        }
 
         // 진눈깨비
-        if (d.contains("진눈깨비")) return "진눈깨비가 내려요";
+        if (d.contains("진눈깨비")) return "진눈깨비가 내리는 날씨";
 
-        // 안개
-        if (d.contains("안개")) return "안개가 조금 끼었어요";
-        if (d.contains("옅은 안개")) return "옅은 안개가 있어요";
-        if (d.contains("짙은 안개")) return "안개가 짙어요";
+        // 안개 / 박무 / 흐린 안개
+        if (d.contains("안개") || d.contains("박무") || d.contains("mist") || d.contains("fog")) {
+            if (d.contains("옅은")) return "옅은 안개가 있는 날씨";
+            if (d.contains("짙은")) return "안개가 짙은 날씨";
+            return "안개가 조금 낀 날씨";
+        }
 
         // 미세먼지/황사
-        if (d.contains("먼지")) return "먼지가 많아 공기가 탁해요";
-        if (d.contains("황사")) return "황사가 있어 공기가 좋지 않아요";
+        if (d.contains("먼지")) return "먼지가 많아 공기가 탁한 날씨";
+        if (d.contains("황사")) return "황사가 있어 공기가 좋지 않은 날씨";
 
         // 천둥/번개
-        if (d.contains("천둥") || d.contains("번개")) return "천둥번개가 치고 있어요 ⚡";
+        if (d.contains("천둥") || d.contains("번개")) return "천둥번개가 치는 날씨";
 
         // 돌풍
-        if (d.contains("돌풍")) return "돌풍이 강하게 불고 있어요";
+        if (d.contains("돌풍")) return "돌풍이 강하게 부는 날씨";
 
         // 기본: 변환 못하면 원본 그대로 출력
         return d;
