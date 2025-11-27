@@ -82,7 +82,9 @@
                             android:text="위치 확인 중..."
                             android:textSize="16sp"
                             android:textColor="#757575"
-                            android:layout_marginBottom="8dp" />
+                            android:layout_marginBottom="8dp"
+                            android:maxLines="1"
+                            android:ellipsize="end" />
 
                         <!-- 온도와 날씨 아이콘 -->
                         <LinearLayout
@@ -91,34 +93,43 @@
                             android:orientation="horizontal"
                             android:gravity="center_vertical">
 
-                            <TextView
-                                android:id="@+id/tvTemperature"
+                            <!-- 온도와 날씨 설명 (세로 배치) -->
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="--°"
-                                android:textSize="48sp"
-                                android:textColor="#212121"
-                                android:textStyle="bold" />
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/tvTemperature"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--°"
+                                    android:textSize="48sp"
+                                    android:textColor="#212121"
+                                    android:textStyle="bold" />
+
+                                <!-- 날씨 설명 -->
+                                <TextView
+                                    android:id="@+id/tvWeatherDescription"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="4dp"
+                                    android:text="로딩 중..."
+                                    android:textSize="14sp"
+                                    android:textColor="#757575" />
+
+                            </LinearLayout>
 
                             <ImageView
                                 android:id="@+id/ivWeatherIcon"
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
                                 android:src="@drawable/clear"
-                                android:layout_marginStart="8dp"
+                                android:layout_marginStart="4dp"
+                                android:layout_gravity="top"
                                 android:contentDescription="@string/weather_icon" />
 
                         </LinearLayout>
-
-                        <!-- 날씨 설명 -->
-                        <TextView
-                            android:id="@+id/tvWeatherDescription"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="로딩 중..."
-                            android:textSize="14sp"
-                            android:textColor="#757575"
-                            android:layout_marginTop="4dp" />
 
                     </LinearLayout>
 
@@ -388,7 +399,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView
@@ -456,7 +467,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView
@@ -524,7 +535,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView
@@ -592,7 +603,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView
@@ -660,7 +671,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView
@@ -728,7 +739,7 @@
                                 android:textColor="#212121"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
-                                android:maxLines="1"
+                                android:maxLines="2"
                                 android:layout_marginBottom="2dp" />
 
                             <TextView

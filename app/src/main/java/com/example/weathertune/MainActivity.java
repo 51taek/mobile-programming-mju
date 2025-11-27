@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 // 4) UI 반영
                 // ================================
                 tvLocation.setText(address);
-                tvTemperature.setText((int) temp + "°");
+                tvTemperature.setText((int) temp + " °");
                 tvWeatherDescription.setText(desc);
                 tvRainProbability.setText((int) pop + "%");
 
@@ -443,34 +443,34 @@ public class MainActivity extends AppCompatActivity {
     private void setWeatherIcon(String state) {
         switch (state) {
             case "맑음":
-                ivWeatherIcon.setImageResource(R.drawable.sunny);
+                ivWeatherIcon.setImageResource(R.drawable.ic_sunny);
                 break;
             case "흐림":
-                ivWeatherIcon.setImageResource(R.drawable.overcast);
+                ivWeatherIcon.setImageResource(R.drawable.ic_overcast);
                 break;
             case "비":
-                ivWeatherIcon.setImageResource(R.drawable.rain);
+                ivWeatherIcon.setImageResource(R.drawable.ic_rainy);
                 break;
             case "이슬비":
-                ivWeatherIcon.setImageResource(R.drawable.lightrain);
+                ivWeatherIcon.setImageResource(R.drawable.ic_lightrain);
                 break;
             case "천둥번개":
-                ivWeatherIcon.setImageResource(R.drawable.thunderstorm);
+                ivWeatherIcon.setImageResource(R.drawable.ic_thunderstorm);
                 break;
             case "눈":
-                ivWeatherIcon.setImageResource(R.drawable.snow);
+                ivWeatherIcon.setImageResource(R.drawable.ic_snow);
                 break;
             case "안개":  // Mist, Fog, Haze, Smoke
-                ivWeatherIcon.setImageResource(R.drawable.cloudy);
+                ivWeatherIcon.setImageResource(R.drawable.ic_cloudy);
                 break;
             case "먼지":  // Dust, Sand, Ash
-                ivWeatherIcon.setImageResource(R.drawable.dust);
+                ivWeatherIcon.setImageResource(R.drawable.ic_dust);
                 break;
             case "돌풍":  // Squall
-                ivWeatherIcon.setImageResource(R.drawable.windy);
+                ivWeatherIcon.setImageResource(R.drawable.ic_windy);
                 break;
             case "태풍":  // Tornado
-                ivWeatherIcon.setImageResource(R.drawable.storm);
+                ivWeatherIcon.setImageResource(R.drawable.ic_storm);
                 break;
             default:
                 ivWeatherIcon.setImageResource(R.drawable.clear);
