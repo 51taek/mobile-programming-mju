@@ -53,6 +53,12 @@
             android:exported="false"
             android:parentActivityName=".MainActivity">
         </activity>
+        <!-- AllPlaylistsActivity 추가 -->
+        <activity
+            android:name=".AllPlaylistsActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <!--MapActivity-->
         <activity
             android:name=".MapActivity"

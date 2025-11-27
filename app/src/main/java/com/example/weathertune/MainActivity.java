@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MAP_REQUEST_CODE = 200;
     private static final String API_KEY = BuildConfig.WEATHER_API_KEY;
 
-    private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability;
+    private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability, btnViewAll;;
     private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
 
     private Button btnPlayNow;
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         refreshBtn = findViewById(R.id.refresh_btn);
         gpsBtn = findViewById(R.id.gps_btn);
         btnPlayNow = findViewById(R.id.btnPlayNow);
+        btnViewAll = findViewById(R.id.btnViewAll);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -82,6 +83,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // PlaylistActivity로 이동
                 Intent intent = new Intent(MainActivity.this, PlaylistActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // AllPlaylistsActivity로 이동
+                Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
                 startActivity(intent);
             }
         });
