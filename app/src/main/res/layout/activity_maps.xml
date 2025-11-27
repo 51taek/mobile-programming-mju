@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 🔹 상단 UI 묶음 (검색바 + 검색 버튼 + 뒤로가기 버튼) -->
+    <RelativeLayout
+        android:id="@+id/top_area"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:padding="10dp"
+        android:background="#B297FF">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back"
+            android:layout_centerVertical="true"
+            android:padding="5dp" />
+
+        <EditText
+            android:id="@+id/search_field"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_toRightOf="@id/btn_back"
+            android:layout_toLeftOf="@id/search_button"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/round_white_button"
+            android:hint="장소 검색"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/search"
+            android:layout_alignParentRight="true"
+            android:padding="5dp" />
+
+    </RelativeLayout>
+
+    <!-- 지도 Fragment (검색바 아래) -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top_area" />
+
+    <!-- 하단 선택 버튼 -->
+    <Button
+        android:id="@+id/btn_select_location"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="위치 선택"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:background="@drawable/round_purple_button"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="60dp"
+        android:elevation="14dp"
+        android:translationZ="14dp"/>
+
+</RelativeLayout>
