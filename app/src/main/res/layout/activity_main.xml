@@ -377,6 +377,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -396,7 +402,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="흔한 날..."
+                                android:text="맑은 오전 감성 팝"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -407,7 +413,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="차분한 • 32곡"
+                                android:text="상쾌한 • 24곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"
@@ -446,6 +452,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -464,7 +476,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="비 오는..."
+                                android:text="흐린 날 로파이"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -475,7 +487,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="감성적인 • 28곡"
+                                android:text="차분한 • 32곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"
@@ -514,6 +526,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -532,7 +550,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="햇살 가..."
+                                android:text="비 오는 날 재즈"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -543,7 +561,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="상쾌한 • 21곡"
+                                android:text="감성적인 • 28곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"
@@ -582,6 +600,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -600,7 +624,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="겨울 저..."
+                                android:text="햇살 가득 인디"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -611,7 +635,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="따뜻한 • 25곡"
+                                android:text="상쾌한 • 21곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"
@@ -650,6 +674,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -668,7 +698,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="여름 밤..."
+                                android:text="겨울 저녁"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -679,7 +709,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="시원한 • 30곡"
+                                android:text="따뜻한 • 25곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"
@@ -718,6 +748,12 @@
                                 android:background="#4DB6AC" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail6"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -736,7 +772,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="봄날의..."
+                                android:text="여름 밤 드라이브"
                                 android:textSize="14sp"
                                 android:textColor="#212121"
                                 android:textStyle="bold"
@@ -747,7 +783,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="경쾌한 • 27곡"
+                                android:text="시원한 • 30곡"
                                 android:textSize="11sp"
                                 android:textColor="#757575"
                                 android:ellipsize="end"

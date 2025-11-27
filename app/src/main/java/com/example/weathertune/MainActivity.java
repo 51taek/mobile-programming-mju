@@ -20,6 +20,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.weathertune.network.RetrofitClient;
 import com.example.weathertune.network.WeatherApiService;
 import com.example.weathertune.network.dto.WeatherResponse;
@@ -334,24 +335,16 @@ public class MainActivity extends AppCompatActivity {
             View cardView = playlistGrid.getChildAt(i);
             if (cardView instanceof CardView) {
                 YouTubeResponse.Item item = items.get(startIndex + i);
-                updatePlaylistCard((CardView) cardView, item);
+                updatePlaylistCard((CardView) cardView, item, i + 1);  // 카드 번호 전달 (1-6)
             }
         }
     }
 
     // 각 플레이리스트 카드 업데이트
-    private void updatePlaylistCard(CardView card, YouTubeResponse.Item item) {
-        // 카드 내부의 TextView 찾기
-        TextView titleView = card.findViewWithTag("title");
-        TextView infoView = card.findViewWithTag("info");
-
-        // tag가 없다면 직접 찾기
-        if (titleView == null) {
-            titleView = findTextViewByText(card, "흔한 날...");
-        }
-        if (infoView == null) {
-            infoView = findTextViewByText(card, "차분한 • 32곡");
-        }
+    private void updatePlaylistCard(CardView card, YouTubeResponse.Item item, int cardIndex) {
+        // 카드 내부의 모든 TextView를 순차적으로 찾기
+        TextView titleView = findNthTextView(card, 0);  // 첫 번째 TextView = 제목
+        TextView infoView = findNthTextView(card, 1);   // 두 번째 TextView = 설명
 
         if (titleView != null) {
             String title = item.snippet.title;
@@ -365,6 +358,17 @@ public class MainActivity extends AppCompatActivity {
             infoView.setText(item.snippet.channelTitle);
         }
 
+        // ★ YouTube 썸네일 이미지 로드
+        int thumbnailId = getThumbnailId(cardIndex);
+        ImageView thumbnailView = card.findViewById(thumbnailId);
+
+        if (thumbnailView != null && item.snippet.thumbnails != null) {
+            Glide.with(this)
+                    .load(item.snippet.thumbnails.medium.url)
+                    .placeholder(R.drawable.album_cover_gradient)
+                    .into(thumbnailView);
+        }
+
         // 카드 클릭 시 YouTube로 이동
         final String videoId = item.id.videoId;
         card.setOnClickListener(v -> {
@@ -374,18 +378,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // TextView 찾기 헬퍼
-    private TextView findTextViewByText(View parent, String text) {
-        if (parent instanceof TextView) {
-            TextView tv = (TextView) parent;
-            if (text.equals(tv.getText().toString())) {
-                return tv;
-            }
+    // 썸네일 ImageView ID 가져오기 (AllPlaylistsActivity와 동일)
+    private int getThumbnailId(int index) {
+        switch (index) {
+            case 1: return R.id.imgThumbnail1;
+            case 2: return R.id.imgThumbnail2;
+            case 3: return R.id.imgThumbnail3;
+            case 4: return R.id.imgThumbnail4;
+            case 5: return R.id.imgThumbnail5;
+            case 6: return R.id.imgThumbnail6;
+            default: return R.id.imgThumbnail1;
         }
-        if (parent instanceof android.view.ViewGroup) {
-            android.view.ViewGroup group = (android.view.ViewGroup) parent;
+    }
+
+    // TextView 찾기 헬퍼 - N번째 TextView 찾기
+    private TextView findTextViewByText(View parent, String text) {
+        // 이 메서드는 더 이상 사용하지 않음
+        return null;
+    }
+
+    // N번째 TextView 찾기 헬퍼 메서드
+    private TextView findNthTextView(View parent, int targetIndex) {
+        int[] currentIndex = {0};
+        return findNthTextViewRecursive(parent, targetIndex, currentIndex);
+    }
+
+    private TextView findNthTextViewRecursive(View view, int targetIndex, int[] currentIndex) {
+        if (view instanceof TextView) {
+            if (currentIndex[0] == targetIndex) {
+                return (TextView) view;
+            }
+            currentIndex[0]++;
+        }
+
+        if (view instanceof android.view.ViewGroup) {
+            android.view.ViewGroup group = (android.view.ViewGroup) view;
             for (int i = 0; i < group.getChildCount(); i++) {
-                TextView result = findTextViewByText(group.getChildAt(i), text);
+                TextView result = findNthTextViewRecursive(group.getChildAt(i), targetIndex, currentIndex);
                 if (result != null) return result;
             }
         }
