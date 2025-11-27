@@ -217,6 +217,7 @@ public class MainActivity extends AppCompatActivity {
                 String desc = data.current.weather.get(0).description;
 
                 // 자연스러운 한국어 변환
+                String koreanWeather = convertWeather(main);
                 String fixedDesc = convertDescriptionNatural(desc);
 
                 tvWeatherDescription.setText(desc);
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 tvWeatherDescription.setText(fixedDesc);
                 tvRainProbability.setText((int) pop + "%");
 
-                setWeatherIcon(convertWeather(main));
+                setWeatherIcon(koreanWeather);
 
                 // ★★★ 날씨에 맞는 음악 검색 ★★★
                 searchYouTubeMusicByWeather(desc);
