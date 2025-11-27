@@ -54,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
     // Grid Layout 플레이리스트 카드들
     private GridLayout playlistGrid;
 
-    private Button btnPlayNow;
-
     FusedLocationProviderClient fusedLocationClient;
 
     double selectedLat = -1;
