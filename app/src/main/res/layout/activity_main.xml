@@ -214,10 +214,9 @@
             <!-- 플레이리스트 카드 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="260dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
 
@@ -256,8 +255,10 @@
                             android:textSize="25sp"
                             android:textColor="#FFFFFF"
                             android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_marginBottom="6dp" />
+                            android:gravity="left"
+                            android:layout_marginBottom="6dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"/>
 
                         <!-- 플레이리스트 설명 -->
                         <TextView
@@ -267,8 +268,10 @@
                             android:text="상쾌한 아침, 기분 좋은 팝 플레이리스트"
                             android:textSize="16sp"
                             android:textColor="#E1BEE7"
-                            android:gravity="center"
-                            android:layout_marginBottom="16dp" />
+                            android:gravity="left"
+                            android:layout_marginBottom="16dp"
+                            android:maxLines="2"
+                            android:ellipsize="end"/>
 
                         <!-- 지금 듣기 버튼 -->
                         <Button

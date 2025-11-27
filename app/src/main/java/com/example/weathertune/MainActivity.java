@@ -279,8 +279,8 @@ public class MainActivity extends AppCompatActivity {
                         // 첫 번째 영상 = Featured Music
                         YouTubeResponse.Item firstItem = youtubeResponse.items.get(0);
                         featuredVideoId = firstItem.id.videoId;
-                        tvPlaylistTitle.setText(firstItem.snippet.title);
-                        tvPlaylistDescription.setText(getWeatherMusicDescription(weatherDesc));
+                        tvPlaylistTitle.setText(getWeatherMusicDescription(weatherDesc));
+                        tvPlaylistDescription.setText(firstItem.snippet.title);
 
                         // 나머지 최대 6개를 GridLayout에 표시
                         updatePlaylistGrid(youtubeResponse.items);
@@ -368,17 +368,17 @@ public class MainActivity extends AppCompatActivity {
     // 날씨에 맞는 설명 생성
     private String getWeatherMusicDescription(String weatherDesc) {
         if (weatherDesc.contains("맑음") || weatherDesc.contains("clear")) {
-            return "상쾌한 아침, 기분 좋은 팝 플레이리스트";
+            return "맑은 오전 감성 팝";
         } else if (weatherDesc.contains("비") || weatherDesc.contains("rain")) {
-            return "비오는 날, 감성적인 음악과 함께";
+            return "비 오는 날 재즈";
         } else if (weatherDesc.contains("눈") || weatherDesc.contains("snow")) {
-            return "겨울밤, 포근한 음악으로 따뜻하게";
+            return "겨울 저녁 발라드";
         } else if (weatherDesc.contains("흐림") || weatherDesc.contains("cloud")) {
-            return "차분한 날씨, 잔잔한 음악과 함께";
+            return "흐린 날 로파이";
         } else if (weatherDesc.contains("천둥") || weatherDesc.contains("thunder")) {
-            return "강렬한 날씨, 파워풀한 음악";
+            return "천둥 번개 록";
         } else {
-            return "지금 이 순간, 완벽한 음악";
+            return "지금 이 순간의 음악";
         }
     }
 
