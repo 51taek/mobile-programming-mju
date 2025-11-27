@@ -5,25 +5,27 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.weathertune.network.RetrofitClient;
 import com.example.weathertune.network.WeatherApiService;
 import com.example.weathertune.network.dto.WeatherResponse;
+import com.example.weathertune.youtube.YouTubeApiService;
+import com.example.weathertune.youtube.YouTubeResponse;
+import com.example.weathertune.youtube.YouTubeRetrofitClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
@@ -38,10 +40,19 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int LOCATION_PERMISSION_CODE = 1000;
     private static final int MAP_REQUEST_CODE = 200;
-    private static final String API_KEY = BuildConfig.WEATHER_API_KEY;
+    private static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
+    private static final String YOUTUBE_API_KEY = BuildConfig.YOUTUBE_API_KEY;
 
     private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability, btnViewAll;;
     private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
+    private Button btnPlayNow;
+
+    // Featured Music
+    private TextView tvPlaylistTitle, tvPlaylistDescription;
+    private String featuredVideoId = "";
+
+    // Grid Layout 플레이리스트 카드들
+    private GridLayout playlistGrid;
 
     private Button btnPlayNow;
 
@@ -67,6 +78,11 @@ public class MainActivity extends AppCompatActivity {
         gpsBtn = findViewById(R.id.gps_btn);
         btnPlayNow = findViewById(R.id.btnPlayNow);
         btnViewAll = findViewById(R.id.btnViewAll);
+        btnPlayNow = findViewById(R.id.btnPlayNow);
+
+        tvPlaylistTitle = findViewById(R.id.tvPlaylistTitle);
+        tvPlaylistDescription = findViewById(R.id.tvPlaylistDescription);
+        playlistGrid = findViewById(R.id.playlistGrid);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -93,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
                 // AllPlaylistsActivity로 이동
                 Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        // Featured Music 재생 버튼
+        btnPlayNow.setOnClickListener(v -> {
+            if (!featuredVideoId.isEmpty()) {
+                String url = "https://www.youtube.com/watch?v=" + featuredVideoId;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "음악을 불러오는 중입니다...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -137,18 +164,14 @@ public class MainActivity extends AppCompatActivity {
                 com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY,
                 null
         ).addOnSuccessListener(location -> {
-
-            double lat;
-            double lon;
-
             if (location == null) {
                 tvLocation.setText("위치 탐색 중...");
                 return;
-            } else {
-                lat = location.getLatitude();
-                lon = location.getLongitude();
-                selectedAddress = getAddress(lat, lon);
             }
+
+            double lat = location.getLatitude();
+            double lon = location.getLongitude();
+            selectedAddress = getAddress(lat, lon);
 
             selectedLat = lat;
             selectedLon = lon;
@@ -158,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestWeather(double lat, double lon, String address) {
-
         WeatherApiService api = RetrofitClient
                 .getInstance(this)
                 .create(WeatherApiService.class);
@@ -169,13 +191,12 @@ public class MainActivity extends AppCompatActivity {
                 "minutely,daily,alerts",
                 "metric",
                 "kr",
-                API_KEY
+                WEATHER_API_KEY
         );
 
         call.enqueue(new Callback<WeatherResponse>() {
             @Override
             public void onResponse(Call<WeatherResponse> call, Response<WeatherResponse> response) {
-
                 if (!response.isSuccessful() || response.body() == null) {
                     tvWeatherDescription.setText("데이터 오류");
                     return;
@@ -220,6 +241,9 @@ public class MainActivity extends AppCompatActivity {
                 tvRainProbability.setText((int) pop + "%");
 
                 setWeatherIcon(convertWeather(main));
+
+                // ★★★ 날씨에 맞는 음악 검색 ★★★
+                searchYouTubeMusicByWeather(desc);
             }
 
             @Override
@@ -229,7 +253,155 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // ★★★ YouTube 음악 검색 ★★★
+    private void searchYouTubeMusicByWeather(String weatherDesc) {
+        String searchQuery = getSearchQueryByWeather(weatherDesc);
 
+        YouTubeApiService youtubeApi = YouTubeRetrofitClient
+                .getInstance()
+                .create(YouTubeApiService.class);
+
+        Call<YouTubeResponse> call = youtubeApi.searchVideos(
+                "snippet",
+                searchQuery,
+                "video",
+                10,
+                "KR",           // 한국 지역
+                "ko",           // 한국어 필터
+                YOUTUBE_API_KEY
+        );
+
+        call.enqueue(new Callback<YouTubeResponse>() {
+            @Override
+            public void onResponse(Call<YouTubeResponse> call, Response<YouTubeResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    YouTubeResponse youtubeResponse = response.body();
+
+                    if (youtubeResponse.items != null && !youtubeResponse.items.isEmpty()) {
+                        // 첫 번째 영상 = Featured Music
+                        YouTubeResponse.Item firstItem = youtubeResponse.items.get(0);
+                        featuredVideoId = firstItem.id.videoId;
+                        tvPlaylistTitle.setText(firstItem.snippet.title);
+                        tvPlaylistDescription.setText(getWeatherMusicDescription(weatherDesc));
+
+                        // 나머지 최대 6개를 GridLayout에 표시
+                        updatePlaylistGrid(youtubeResponse.items);
+                    }
+                } else {
+                    Toast.makeText(MainActivity.this, "YouTube 검색 실패", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<YouTubeResponse> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "YouTube API 오류", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // GridLayout에 YouTube 데이터 채우기
+    private void updatePlaylistGrid(List<YouTubeResponse.Item> items) {
+        // GridLayout의 6개 카드 찾기
+        int maxCards = Math.min(6, playlistGrid.getChildCount());
+        int startIndex = 1; // 첫 번째는 Featured로 사용했으니 1번부터
+
+        for (int i = 0; i < maxCards && (startIndex + i) < items.size(); i++) {
+            View cardView = playlistGrid.getChildAt(i);
+            if (cardView instanceof CardView) {
+                YouTubeResponse.Item item = items.get(startIndex + i);
+                updatePlaylistCard((CardView) cardView, item);
+            }
+        }
+    }
+
+    // 각 플레이리스트 카드 업데이트
+    private void updatePlaylistCard(CardView card, YouTubeResponse.Item item) {
+        // 카드 내부의 TextView 찾기
+        TextView titleView = card.findViewWithTag("title");
+        TextView infoView = card.findViewWithTag("info");
+
+        // tag가 없다면 직접 찾기
+        if (titleView == null) {
+            titleView = findTextViewByText(card, "흔한 날...");
+        }
+        if (infoView == null) {
+            infoView = findTextViewByText(card, "차분한 • 32곡");
+        }
+
+        if (titleView != null) {
+            String title = item.snippet.title;
+            titleView.setText(title);
+            // 2줄 제한 + ... 표시 설정
+            titleView.setMaxLines(2);
+            titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        }
+
+        if (infoView != null) {
+            infoView.setText(item.snippet.channelTitle);
+        }
+
+        // 카드 클릭 시 YouTube로 이동
+        final String videoId = item.id.videoId;
+        card.setOnClickListener(v -> {
+            String url = "https://www.youtube.com/watch?v=" + videoId;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        });
+    }
+
+    // TextView 찾기 헬퍼
+    private TextView findTextViewByText(View parent, String text) {
+        if (parent instanceof TextView) {
+            TextView tv = (TextView) parent;
+            if (text.equals(tv.getText().toString())) {
+                return tv;
+            }
+        }
+        if (parent instanceof android.view.ViewGroup) {
+            android.view.ViewGroup group = (android.view.ViewGroup) parent;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                TextView result = findTextViewByText(group.getChildAt(i), text);
+                if (result != null) return result;
+            }
+        }
+        return null;
+    }
+
+    // 날씨에 맞는 설명 생성
+    private String getWeatherMusicDescription(String weatherDesc) {
+        if (weatherDesc.contains("맑음") || weatherDesc.contains("clear")) {
+            return "상쾌한 아침, 기분 좋은 팝 플레이리스트";
+        } else if (weatherDesc.contains("비") || weatherDesc.contains("rain")) {
+            return "비오는 날, 감성적인 음악과 함께";
+        } else if (weatherDesc.contains("눈") || weatherDesc.contains("snow")) {
+            return "겨울밤, 포근한 음악으로 따뜻하게";
+        } else if (weatherDesc.contains("흐림") || weatherDesc.contains("cloud")) {
+            return "차분한 날씨, 잔잔한 음악과 함께";
+        } else if (weatherDesc.contains("천둥") || weatherDesc.contains("thunder")) {
+            return "강렬한 날씨, 파워풀한 음악";
+        } else {
+            return "지금 이 순간, 완벽한 음악";
+        }
+    }
+
+    // 날씨에 맞는 검색어 생성
+    private String getSearchQueryByWeather(String weatherDesc) {
+        if (weatherDesc.contains("맑음") || weatherDesc.contains("clear")) {
+            return "신나는 음악 playlist";
+        } else if (weatherDesc.contains("비") || weatherDesc.contains("rain")) {
+            return "비오는날 감성 음악";
+        } else if (weatherDesc.contains("눈") || weatherDesc.contains("snow")) {
+            return "겨울 음악 playlist";
+        } else if (weatherDesc.contains("흐림") || weatherDesc.contains("cloud")) {
+            return "잔잔한 음악 모음";
+        } else if (weatherDesc.contains("천둥") || weatherDesc.contains("thunder")) {
+            return "강렬한 음악 playlist";
+        } else if (weatherDesc.contains("안개") || weatherDesc.contains("fog") || weatherDesc.contains("mist")) {
+            return "분위기 있는 음악";
+        } else {
+            return "감성 음악 모음";
+        }
+    }
 
     private String getAddress(double lat, double lon) {
         try {
