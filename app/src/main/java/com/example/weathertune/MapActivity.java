@@ -37,6 +37,11 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     private LatLng selectedLatLng;
     private String selectedAddress = "";
 
+    // ★ MainActivity에서 전달받은 초기 위치 값
+    private double initLat = 37.2253;
+    private double initLon = 127.1885;
+    private String initAddress = "명지대학교 자연캠퍼스";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,12 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         searchField = findViewById(R.id.search_field);
         selectButton = findViewById(R.id.btn_select_location);
         backButton = findViewById(R.id.btn_back);
+
+        // ★★★ MainActivity에서 전달된 선택된 마지막 좌표 가져오기 ★★★
+        initLat = getIntent().getDoubleExtra("lat", initLat);
+        initLon = getIntent().getDoubleExtra("lon", initLon);
+        initAddress = getIntent().getStringExtra("address");
+        if (initAddress == null) initAddress = "선택된 위치";
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -82,12 +93,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng defaultPos = new LatLng(37.2253, 127.1885);
-        selectedLatLng = defaultPos;
-        selectedAddress = "명지대학교 자연캠퍼스";
+        // ★★★ 초기에 마지막 선택 위치로 지도 이동 ★★★
+        LatLng startPos = new LatLng(initLat, initLon);
+        selectedLatLng = startPos;
+        selectedAddress = initAddress;
 
-        marker = mMap.addMarker(new MarkerOptions().position(defaultPos).title("선택 위치"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultPos, 15));
+        marker = mMap.addMarker(new MarkerOptions().position(startPos).title("선택 위치"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPos, 15));
 
         // 지도 터치 → 마커 이동 & 주소 갱신
         mMap.setOnMapClickListener(point -> {

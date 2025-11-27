@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
     private static final String YOUTUBE_API_KEY = BuildConfig.YOUTUBE_API_KEY;
 
-    private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability, btnViewAll;;
+    private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability, btnViewAll, tvWeatherAlert;;
     private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
     private Button btnPlayNow;
 
@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlayNow = findViewById(R.id.btnPlayNow);
         btnViewAll = findViewById(R.id.btnViewAll);
         btnPlayNow = findViewById(R.id.btnPlayNow);
+        tvWeatherAlert = findViewById(R.id.tvWeatherAlert);
 
         tvPlaylistTitle = findViewById(R.id.tvPlaylistTitle);
         tvPlaylistDescription = findViewById(R.id.tvPlaylistDescription);
@@ -138,6 +139,12 @@ public class MainActivity extends AppCompatActivity {
 
         gpsBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, MapActivity.class);
+
+            // ★ 현재 선택된 위치를 그대로 넘긴다
+            intent.putExtra("lat", selectedLat);
+            intent.putExtra("lon", selectedLon);
+            intent.putExtra("address", selectedAddress);
+
             startActivityForResult(intent, MAP_REQUEST_CODE);
         });
 
@@ -255,6 +262,8 @@ public class MainActivity extends AppCompatActivity {
                 tvRainProbability.setText((int) pop + "%");
 
                 setWeatherIcon(koreanWeather);
+
+                updateWeatherAlert(fixedDesc, (int) pop);
 
                 // ★★★ 날씨에 맞는 음악 검색 ★★★
                 searchYouTubeMusicByWeather(desc);
@@ -599,5 +608,51 @@ public class MainActivity extends AppCompatActivity {
 
         // 날씨 요청 시작
         requestWeather(selectedLat, selectedLon, selectedAddress);
+    }
+
+    private void updateWeatherAlert(String weatherDesc, int rainProb) {
+
+        String message = "지금 이 순간, 기분 좋은 음악 어떠세요?";
+
+        // 강수확률 70% 이상이 우선
+        if (rainProb >= 70) {
+            message = "🌧️ 비 올 가능성이 높아요! 잔잔한 발라드를 추천할까요?";
+        }
+
+        // 날씨 설명 분석
+        if (weatherDesc.contains("맑아요")) {
+            message = "☀️ 날씨가 맑아요! 감성 팝 플레이리스트 어떠세요?";
+
+        } else if (weatherDesc.contains("비")) {
+            message = "🌧️ 비가 오고 있어요! 분위기 있는 재즈를 추천할까요?";
+
+        } else if (weatherDesc.contains("눈")) {
+            message = "❄️ 눈이 내리고 있어요! 따뜻한 발라드 어때요?";
+
+        } else if (weatherDesc.contains("흐려요") || weatherDesc.contains("구름")) {
+            message = "☁️ 흐린 날이에요. 잔잔한 로파이를 들어볼까요?";
+
+        } else if (weatherDesc.contains("천둥") || weatherDesc.contains("⚡")) {
+            message = "⚡ 천둥번개가 치고 있어요! 강렬한 록도 괜찮죠?";
+        }
+
+        // UI 적용
+        tvWeatherAlert.setText(message);
+
+        // 배너 클릭 → AllPlaylistsActivity 이동
+        View parentCard = (View) tvWeatherAlert.getParent();
+
+        parentCard.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
+
+            // 현재 유튜브 목록 전달
+            if (currentYoutubeItems != null) {
+                String json = new Gson().toJson(currentYoutubeItems);
+                intent.putExtra("youtubeItemsJson", json);
+            }
+
+            // weatherKeyword 넘길 필요 없음
+            startActivity(intent);
+        });
     }
 }

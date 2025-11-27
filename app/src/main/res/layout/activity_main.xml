@@ -40,7 +40,7 @@
                         android:id="@+id/tvWeatherAlert"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="🌧️ 비가 오기 시작했어요! 분위기 있는 재즈를 추천할까요?"
+                        android:text=" 🎶날씨에 맞는 노래를 즐겨 보세요!"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:lineSpacingExtra="4dp"
