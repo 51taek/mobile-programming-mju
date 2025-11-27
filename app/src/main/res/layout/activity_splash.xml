@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7C4DFF">
+    android:background="@drawable/splash_gradient_background">
 
+    <!-- 중앙 콘텐츠 -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -11,35 +12,35 @@
         android:orientation="vertical"
         android:gravity="center">
 
-        <!-- Music Icon -->
+        <!-- 음표 아이콘 (원형 배경 포함) -->
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_music_note"
-            android:layout_marginBottom="40dp"
-            android:contentDescription="@string/app_icon" />
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_splash_music_icon"
+            android:contentDescription="@string/app_icon"
+            android:layout_marginBottom="32dp" />
 
-        <!-- App Title -->
-
-        <!-- Subtitle -->
-
+        <!-- 앱 이름 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif-medium"
             android:text="WeatherTune"
+            android:textSize="48sp"
             android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02"
+            android:layout_marginBottom="12dp" />
 
+        <!-- 부제목 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="날씨에 맞는 음악을"
             android:textSize="18sp"
-            android:textColor="#E1BEE7"
-            android:fontFamily="sans-serif-light" />
+            android:textColor="#E9D5FF"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="0.05" />
 
     </LinearLayout>
 
