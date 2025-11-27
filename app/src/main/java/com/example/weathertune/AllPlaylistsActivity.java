@@ -3,8 +3,11 @@ package com.example.weathertune;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -19,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllPlaylistsActivity extends AppCompatActivity {
@@ -26,8 +30,10 @@ public class AllPlaylistsActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private GridLayout playlistGrid;
     private TextView tvSectionTitle;
+    private EditText etSearch;
 
     private List<YouTubeResponse.Item> items; // MainActivity에서 받은 유튜브 리스트
+    private List<YouTubeResponse.Item> originalItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,7 @@ public class AllPlaylistsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         playlistGrid = findViewById(R.id.play_all_list_grid);
         tvSectionTitle = findViewById(R.id.section_weather_title);
+        etSearch = findViewById(R.id.etSearch);
 
         // 뒤로가기 버튼
         btnBack.setOnClickListener(v -> finish());
@@ -57,20 +64,33 @@ public class AllPlaylistsActivity extends AppCompatActivity {
         // 데이터 없으면 종료
         if (items == null || items.isEmpty()) return;
 
+        // ★ 원본 목록 저장
+        originalItems = new ArrayList<>(items);
+
         // ★ Grid 업데이트
         updateGrid(items);
+
+        // ★ 검색 기능 활성화
+        addSearchFunction();
     }
 
-    // GridLayout 카드 업데이트
+    // GridLayout 업데이트
     private void updateGrid(List<YouTubeResponse.Item> items) {
 
+        // 먼저 모든 카드 숨김
+        for (int i = 0; i < playlistGrid.getChildCount(); i++) {
+            playlistGrid.getChildAt(i).setVisibility(View.GONE);
+        }
+
+        // 필요한 카드만 보여줌
         int maxCards = Math.min(playlistGrid.getChildCount(), items.size());
 
         for (int i = 0; i < maxCards; i++) {
             View cardView = playlistGrid.getChildAt(i);
 
             if (cardView instanceof CardView) {
-                updatePlaylistCard((CardView) cardView, items.get(i), i+1);
+                cardView.setVisibility(View.VISIBLE);  // ★ 보여주기
+                updatePlaylistCard((CardView) cardView, items.get(i), i + 1);
             }
         }
     }
@@ -187,5 +207,42 @@ public class AllPlaylistsActivity extends AppCompatActivity {
 
         // 기본: 변환 못하면 원본 그대로 출력
         return d;
+    }
+
+    // 검색창 TextWatcher 연결
+    private void addSearchFunction() {
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String keyword = s.toString().trim();
+                filterItems(keyword);
+            }
+        });
+    }
+
+    // 검색 필터링 실행
+    private void filterItems(String keyword) {
+
+        if (keyword.isEmpty()) {
+            // 검색어 비어있으면 전체 복원
+            items = new ArrayList<>(originalItems);
+        } else {
+            // 제목 기준으로 필터링
+            List<YouTubeResponse.Item> filtered = new ArrayList<>();
+
+            for (YouTubeResponse.Item item : originalItems) {
+                if (item.snippet.title.toLowerCase().contains(keyword.toLowerCase())) {
+                    filtered.add(item);
+                }
+            }
+
+            items = filtered;
+        }
+
+        // 화면 업데이트
+        updateGrid(items);
     }
 }
