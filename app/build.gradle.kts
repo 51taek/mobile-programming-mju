@@ -13,6 +13,8 @@ if (localPropertiesFile.exists()) {
 val WEATHER_API_KEY: String = localProps.getProperty("WEATHER_API_KEY") ?: ""
 val GOOGLE_MAP_API_KEY: String = localProps.getProperty("GOOGLE_MAP_API_KEY") ?: ""
 
+val YOUTUBE_API_KEY: String = localProps.getProperty("YOUTUBE_API_KEY") ?: ""
+
 android {
     namespace = "com.example.weathertune"
     compileSdk = 34
@@ -33,6 +35,7 @@ android {
         // BuildConfig
         buildConfigField("String", "WEATHER_API_KEY", "\"$WEATHER_API_KEY\"")
         buildConfigField("String", "GOOGLE_MAP_API_KEY", "\"$GOOGLE_MAP_API_KEY\"")
+        buildConfigField("String", "YOUTUBE_API_KEY", "\"$YOUTUBE_API_KEY\"")
 
         // Manifest Placeholders
         manifestPlaceholders["GOOGLE_MAP_API_KEY"] = GOOGLE_MAP_API_KEY
@@ -58,6 +61,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+
+    // Glide (이미지 로딩)
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")
