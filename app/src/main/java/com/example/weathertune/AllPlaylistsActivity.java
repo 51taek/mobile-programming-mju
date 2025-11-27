@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.bumptech.glide.Glide;
 import com.example.weathertune.youtube.YouTubeResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -68,32 +70,52 @@ public class AllPlaylistsActivity extends AppCompatActivity {
             View cardView = playlistGrid.getChildAt(i);
 
             if (cardView instanceof CardView) {
-                updatePlaylistCard((CardView) cardView, items.get(i));
+                updatePlaylistCard((CardView) cardView, items.get(i), i+1);
             }
         }
     }
 
     // 개별 카드 설정
-    private void updatePlaylistCard(CardView card, YouTubeResponse.Item item) {
+    private void updatePlaylistCard(CardView card, YouTubeResponse.Item item, int index) {
 
-        TextView titleView = findTextInside(card, 0);  // 제목
-        TextView infoView = findTextInside(card, 1);   // 채널명
+        TextView titleView = findTextInside(card, 0);
+        TextView infoView = findTextInside(card, 1);
 
-        if (titleView != null) {
-            titleView.setText(item.snippet.title);
+        if (titleView != null) titleView.setText(item.snippet.title);
+        if (infoView != null) infoView.setText(item.snippet.channelTitle);
+
+        int thumbnailId = getThumbnailId(index);
+        ImageView thumbnailView = card.findViewById(thumbnailId);
+
+        if (thumbnailView != null && item.snippet.thumbnails != null) {
+            Glide.with(this)
+                    .load(item.snippet.thumbnails.medium.url)
+                    .placeholder(R.drawable.album_cover_gradient)
+                    .into(thumbnailView);
         }
 
-        if (infoView != null) {
-            infoView.setText(item.snippet.channelTitle);
-        }
-
-        // 클릭 → YouTube 이동
         card.setOnClickListener(v -> {
             String url = "https://www.youtube.com/watch?v=" + item.id.videoId;
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-            startActivity(intent);
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
         });
     }
+
+    private int getThumbnailId(int index) {
+        switch (index) {
+            case 1: return R.id.imgThumbnail1;
+            case 2: return R.id.imgThumbnail2;
+            case 3: return R.id.imgThumbnail3;
+            case 4: return R.id.imgThumbnail4;
+            case 5: return R.id.imgThumbnail5;
+            case 6: return R.id.imgThumbnail6;
+            case 7: return R.id.imgThumbnail7;
+            case 8: return R.id.imgThumbnail8;
+            case 9: return R.id.imgThumbnail9;
+            case 10: return R.id.imgThumbnail10;
+        }
+        return R.id.imgThumbnail1;
+    }
+
 
     // Card 내부 TextView 찾기
     private TextView findTextInside(View parent, int index) {

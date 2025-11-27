@@ -67,6 +67,12 @@
                                 android:background="@drawable/album_cover_gradient" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -135,6 +141,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/album_cover_gradient" />
+
+                            <ImageView
+                                android:id="@+id/imgThumbnail2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -206,6 +218,12 @@
                                 android:background="@drawable/album_cover_gradient" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -273,6 +291,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/album_cover_gradient" />
+
+                            <ImageView
+                                android:id="@+id/imgThumbnail4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -344,6 +368,12 @@
                                 android:background="@drawable/album_cover_gradient" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -411,6 +441,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/album_cover_gradient" />
+
+                            <ImageView
+                                android:id="@+id/imgThumbnail6"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -482,6 +518,12 @@
                                 android:background="@drawable/album_cover_gradient" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail7"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -549,6 +591,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/album_cover_gradient" />
+
+                            <ImageView
+                                android:id="@+id/imgThumbnail8"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
 
                             <ImageView
                                 android:layout_width="60dp"
@@ -620,6 +668,12 @@
                                 android:background="@drawable/album_cover_gradient" />
 
                             <ImageView
+                                android:id="@+id/imgThumbnail9"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:layout_gravity="center"
@@ -687,6 +741,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/album_cover_gradient" />
+
+                            <ImageView
+                                android:id="@+id/imgThumbnail10"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
 
                             <ImageView
                                 android:layout_width="60dp"
