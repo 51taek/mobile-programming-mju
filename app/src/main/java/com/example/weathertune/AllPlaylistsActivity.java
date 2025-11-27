@@ -170,7 +170,7 @@ public class AllPlaylistsActivity extends AppCompatActivity {
         if (d.contains("맑음")) return "하늘이 맑아요";
 
         // 구름 (약간/많음/튼구름/조금/온흐린/구름이 낀)
-        if (d.contains("구름") || d.contains("흐린 하늘") || d.contains("흐린") || d.contains("튼구름")) {
+        if (d.contains("구름") || d.contains("흐린 하늘") || d.contains("흐린") || d.contains("튼구름") || d.contains("흐림")) {
             if (d.contains("약간") || d.contains("조금") || d.contains("튼구름")) {
                 return "구름이 조금 낀 날씨";
             }
