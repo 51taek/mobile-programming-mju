@@ -28,6 +28,7 @@ import com.example.weathertune.youtube.YouTubeResponse;
 import com.example.weathertune.youtube.YouTubeRetrofitClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Locale;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     double selectedLon = -1;
     String selectedAddress = null;
     private String currentWeatherKeyword = "";
+    private List<YouTubeResponse.Item> currentYoutubeItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,13 +106,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        btnViewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // AllPlaylistsActivity로 이동
-                Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
-                startActivity(intent);
+        btnViewAll.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
+
+            intent.putExtra("weatherKeyword", currentWeatherKeyword);
+
+            // ★ YouTube 목록 전달 (JSON)
+            if (currentYoutubeItems != null) {
+                String json = new Gson().toJson(currentYoutubeItems);
+                intent.putExtra("youtubeItemsJson", json);
             }
+
+            startActivity(intent);
         });
 
         // Featured Music 재생 버튼
@@ -285,6 +292,8 @@ public class MainActivity extends AppCompatActivity {
                     YouTubeResponse youtubeResponse = response.body();
 
                     if (youtubeResponse.items != null && !youtubeResponse.items.isEmpty()) {
+                        currentYoutubeItems = youtubeResponse.items;
+
                         // 첫 번째 영상 = Featured Music
                         YouTubeResponse.Item firstItem = youtubeResponse.items.get(0);
                         featuredVideoId = firstItem.id.videoId;

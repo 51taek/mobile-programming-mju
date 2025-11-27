@@ -20,6 +20,7 @@
 
             <!-- 날씨별 분위기 섹션 -->
             <TextView
+                android:id="@+id/section_weather_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="날씨별 분위기"
@@ -30,6 +31,7 @@
 
             <!-- 플레이리스트 그리드 -->
             <GridLayout
+                android:id="@+id/play_all_list_grid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:columnCount="2"
