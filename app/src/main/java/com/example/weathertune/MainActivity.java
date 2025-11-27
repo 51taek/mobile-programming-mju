@@ -7,6 +7,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability;
     private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
 
+    private Button btnPlayNow;
+
     FusedLocationProviderClient fusedLocationClient;
 
     double selectedLat = -1;
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         ivWeatherIcon = findViewById(R.id.ivWeatherIcon);
         refreshBtn = findViewById(R.id.refresh_btn);
         gpsBtn = findViewById(R.id.gps_btn);
+        btnPlayNow = findViewById(R.id.btnPlayNow);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -70,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
         btnSettings.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
             startActivity(intent);
+        });
+
+        btnPlayNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // PlaylistActivity로 이동
+                Intent intent = new Intent(MainActivity.this, PlaylistActivity.class);
+                startActivity(intent);
+            }
         });
 
         refreshBtn.setOnClickListener(v -> {
