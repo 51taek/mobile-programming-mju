@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.WeatherTune" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- 다크 모드 색상 (스크린샷 기준) -->
+        <item name="colorPrimary">#7C4DFF</item>
+        <item name="colorPrimaryVariant">#651FFF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- 배경 색상 -->
+        <item name="android:colorBackground">#1A1D29</item>
+        <item name="colorSurface">#252836</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+
+        <!-- 텍스트 색상 -->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+        <item name="android:textColorSecondary">#8E92A6</item>
+
+        <!-- 상태바 색상 -->
+        <item name="android:statusBarColor">#252836</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

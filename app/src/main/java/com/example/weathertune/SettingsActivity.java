@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,9 +21,12 @@ public class SettingsActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private SwitchCompat switchWeatherNotification;
     private SwitchCompat switchTheme;
+    private ImageView themeIcon;
+    private TextView themeLabel;
     private SharedPreferences preferences;
     private static final String PREF_NAME = "WeatherTuneSettings";
     private static final String KEY_WEATHER_NOTIFICATION = "weather_notification";
+    private static final String KEY_DARK_MODE = "dark_mode";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +40,21 @@ public class SettingsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         switchWeatherNotification = findViewById(R.id.switchWeatherNotification);
         switchTheme = findViewById(R.id.switchTheme);
+        themeIcon = findViewById(R.id.themeIcon);
+        themeLabel = findViewById(R.id.themeLabel);
 
         // 저장된 알림 설정 불러오기 (기본값: true)
         boolean isNotificationEnabled = preferences.getBoolean(KEY_WEATHER_NOTIFICATION, true);
+        boolean isDarkMode = preferences.getBoolean(KEY_DARK_MODE, false);
+
         switchWeatherNotification.setChecked(isNotificationEnabled);
+        switchTheme.setChecked(isDarkMode);
+
+        // 초기 아이콘과 텍스트 설정
+        updateThemeIconAndText(isDarkMode);
 
         // 뒤로가기 버튼 클릭 리스너
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // 현재 액티비티 종료
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
 
         // 날씨 알림 스위치 리스너
         switchWeatherNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -63,20 +71,37 @@ public class SettingsActivity extends AppCompatActivity {
 
         // 테마 스위치 리스너
         switchTheme.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            // TODO: 테마 설정 저장
+            // 설정 저장
+            preferences.edit().putBoolean(KEY_DARK_MODE, isChecked).apply();
+
+            // 아이콘과 텍스트 업데이트
+            updateThemeIconAndText(isChecked);
+
+            // 테마 전환
             if (isChecked) {
-                // 다크 모드 활성화
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                showCustomBanner("다크 모드 켜짐\n어두운 테마가 적용되었습니다.", "#757575");
             } else {
-                // 라이트 모드 활성화
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                showCustomBanner("라이트 모드 켜짐\n밝은 테마가 적용되었습니다.", "#757575");
             }
+
+            // 현재 액티비티만 재시작
+            recreate();
         });
     }
 
-    /**
-     * 커스텀 배너를 화면 상단에 표시하는 메서드
-     * @param message 표시할 메시지
-     * @param backgroundColor 배경색 (HEX 코드)
-     */
+    // 테마 아이콘과 텍스트 업데이트
+    private void updateThemeIconAndText(boolean isDarkMode) {
+        if (isDarkMode) {
+            themeIcon.setImageResource(R.drawable.ic_moon);
+            themeLabel.setText("다크 모드");
+        } else {
+            themeIcon.setImageResource(R.drawable.ic_sun);
+            themeLabel.setText("라이트 모드");
+        }
+    }
+
     @SuppressLint("RestrictedApi")
     private void showCustomBanner(String message, String backgroundColor) {
         Snackbar snackbar = Snackbar.make(

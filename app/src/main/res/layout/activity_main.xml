@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="?android:attr/colorBackground">
 
     <!-- 메인 콘텐츠 영역 -->
     <androidx.core.widget.NestedScrollView
@@ -58,7 +58,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
-                app:cardBackgroundColor="#FFFFFF"
+                app:cardBackgroundColor="?attr/colorSurface"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
 
@@ -82,7 +82,7 @@
                             android:layout_height="wrap_content"
                             android:text="위치 확인 중..."
                             android:textSize="16sp"
-                            android:textColor="#757575"
+                            android:textColor="?android:attr/textColorSecondary"
                             android:layout_marginBottom="8dp"
                             android:maxLines="1"
                             android:ellipsize="end" />
@@ -106,7 +106,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="--°"
                                     android:textSize="48sp"
-                                    android:textColor="#212121"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textStyle="bold" />
 
                                 <!-- 날씨 설명 -->
@@ -117,7 +117,7 @@
                                     android:layout_marginStart="4dp"
                                     android:text="로딩 중..."
                                     android:textSize="14sp"
-                                    android:textColor="#757575" />
+                                    android:textColor="?android:attr/textColorSecondary" />
 
                             </LinearLayout>
 
@@ -146,7 +146,7 @@
                             android:layout_height="wrap_content"
                             android:text="강수 확률"
                             android:textSize="14sp"
-                            android:textColor="#757575"
+                            android:textColor="?android:attr/textColorSecondary"
                             android:layout_marginBottom="4dp" />
 
                         <TextView
@@ -178,7 +178,7 @@
                                     android:id="@+id/gps_btn"
                                     android:layout_width="28dp"
                                     android:layout_height="28dp"
-                                    android:src="@drawable/gps"
+                                    android:src="@drawable/ic_gps"
                                     android:padding="0dp"
                                     android:layout_gravity="center"
                                     android:clickable="true"
@@ -196,7 +196,7 @@
                                     android:id="@+id/refresh_btn"
                                     android:layout_width="28dp"
                                     android:layout_height="28dp"
-                                    android:src="@drawable/refresh"
+                                    android:src="@drawable/ic_refresh"
                                     android:padding="0dp"
                                     android:layout_gravity="center"
                                     android:clickable="true"
@@ -230,7 +230,7 @@
                     android:layout_marginBottom="16dp"
                     android:text="지금 날씨에 어울리는 음악"
                     android:textSize="20sp"
-                    android:textColor="#212121"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
 
@@ -250,7 +250,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="#AA7C4DFF" />
+                        android:background="#AA4527A0" />
 
                     <!-- 콘텐츠 -->
                     <LinearLayout
@@ -321,7 +321,7 @@
                     android:layout_weight="1"
                     android:text="추천 재생목록"
                     android:textSize="20sp"
-                    android:textColor="#212121"
+                    android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold" />
 
                 <TextView
@@ -330,7 +330,7 @@
                     android:layout_height="wrap_content"
                     android:text="전체보기"
                     android:textSize="14sp"
-                    android:textColor="#757575"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:background="?attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -405,7 +405,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="맑은 오전 감성 팝"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -416,7 +416,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="상쾌한 • 24곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -479,7 +479,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="흐린 날 로파이"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -490,7 +490,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="차분한 • 32곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -553,7 +553,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="비 오는 날 재즈"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -564,7 +564,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="감성적인 • 28곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -627,7 +627,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="햇살 가득 인디"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -638,7 +638,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="상쾌한 • 21곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -701,7 +701,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="겨울 저녁"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -712,7 +712,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="따뜻한 • 25곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -775,7 +775,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="여름 밤 드라이브"
                                 android:textSize="14sp"
-                                android:textColor="#212121"
+                                android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:ellipsize="end"
                                 android:maxLines="2"
@@ -786,7 +786,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="시원한 • 30곡"
                                 android:textSize="11sp"
-                                android:textColor="#757575"
+                                android:textColor="?android:attr/textColorSecondary"
                                 android:ellipsize="end"
                                 android:maxLines="1" />
 
@@ -813,7 +813,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#B3FFFFFF"
+            android:background="?attr/colorSurface"
             android:paddingStart="16dp"
             android:paddingEnd="16dp">
 

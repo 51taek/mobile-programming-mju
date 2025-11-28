@@ -1,8 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.WeatherTune" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- 라이트 모드 색상 -->
+        <item name="colorPrimary">#7C4DFF</item>
+        <item name="colorPrimaryVariant">#651FFF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <!-- 배경 색상 -->
+        <item name="android:colorBackground">#F5F5F5</item>
+        <item name="colorSurface">#FFFFFF</item>
+        <item name="colorOnSurface">#212121</item>
+
+        <!-- 텍스트 색상 -->
+        <item name="android:textColorPrimary">#212121</item>
+        <item name="android:textColorSecondary">#757575</item>
+
+        <!-- 상태바 색상 -->
+        <item name="android:statusBarColor">#FFFFFF</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.WeatherTune" parent="Base.Theme.WeatherTune" />
