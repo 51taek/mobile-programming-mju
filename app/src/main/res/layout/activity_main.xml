@@ -21,6 +21,7 @@
 
             <!-- 날씨 변화 알림 카드 -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/weatherAlertCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"

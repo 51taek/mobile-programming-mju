@@ -2,6 +2,7 @@ package com.example.weathertune;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -45,9 +46,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String WEATHER_API_KEY = BuildConfig.WEATHER_API_KEY;
     private static final String YOUTUBE_API_KEY = BuildConfig.YOUTUBE_API_KEY;
 
+    // ★ SharedPreferences 관련 추가 ★
+    private static final String PREF_NAME = "WeatherTuneSettings";
+    private static final String KEY_WEATHER_NOTIFICATION = "weather_notification";
+    private SharedPreferences preferences;
+
     private TextView tvLocation, tvTemperature, tvWeatherDescription, tvRainProbability, btnViewAll, tvWeatherAlert;;
     private ImageView btnSettings, ivWeatherIcon, refreshBtn, gpsBtn;
     private Button btnPlayNow;
+    private CardView weatherAlertCard;  // ★ 추가 ★
 
     // Featured Music
     private TextView tvPlaylistTitle, tvPlaylistDescription;
@@ -69,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // ★ SharedPreferences 초기화 ★
+        preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
         btnSettings = findViewById(R.id.btnSettings);
         tvLocation = findViewById(R.id.tvLocation);
         tvTemperature = findViewById(R.id.tvTemperature);
@@ -79,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
         gpsBtn = findViewById(R.id.gps_btn);
         btnPlayNow = findViewById(R.id.btnPlayNow);
         btnViewAll = findViewById(R.id.btnViewAll);
-        btnPlayNow = findViewById(R.id.btnPlayNow);
         tvWeatherAlert = findViewById(R.id.tvWeatherAlert);
+        weatherAlertCard = findViewById(R.id.weatherAlertCard);  // ★ 추가 ★
 
         tvPlaylistTitle = findViewById(R.id.tvPlaylistTitle);
         tvPlaylistDescription = findViewById(R.id.tvPlaylistDescription);
@@ -150,6 +160,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         checkLocationPermission();
+    }
+
+    // ★ onResume 메서드 추가 ★
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // 설정 화면에서 돌아올 때마다 알림 카드 표시 여부 업데이트
+        updateWeatherAlertCardVisibility();
+    }
+
+    // ★ 날씨 알림 카드 표시/숨김 메서드 추가 ★
+    private void updateWeatherAlertCardVisibility() {
+        boolean isNotificationEnabled = preferences.getBoolean(KEY_WEATHER_NOTIFICATION, true);
+
+        if (weatherAlertCard != null) {
+            weatherAlertCard.setVisibility(isNotificationEnabled ? View.VISIBLE : View.GONE);
+        }
     }
 
     private void checkLocationPermission() {
@@ -650,6 +677,7 @@ public class MainActivity extends AppCompatActivity {
         requestWeather(selectedLat, selectedLon, selectedAddress);
     }
 
+    // ★ updateWeatherAlert 메서드 수정 ★
     private void updateWeatherAlert(String weatherDesc, int rainProb) {
 
         String message = "지금 이 순간, 기분 좋은 음악 어떠세요?";
@@ -679,20 +707,19 @@ public class MainActivity extends AppCompatActivity {
         // UI 적용
         tvWeatherAlert.setText(message);
 
-        // 배너 클릭 → AllPlaylistsActivity 이동
-        View parentCard = (View) tvWeatherAlert.getParent();
+        // ★ 배너 클릭 → AllPlaylistsActivity 이동 (weatherAlertCard 사용) ★
+        if (weatherAlertCard != null) {
+            weatherAlertCard.setOnClickListener(v -> {
+                Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
 
-        parentCard.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AllPlaylistsActivity.class);
+                // 현재 유튜브 목록 전달
+                if (currentYoutubeItems != null) {
+                    String json = new Gson().toJson(currentYoutubeItems);
+                    intent.putExtra("youtubeItemsJson", json);
+                }
 
-            // 현재 유튜브 목록 전달
-            if (currentYoutubeItems != null) {
-                String json = new Gson().toJson(currentYoutubeItems);
-                intent.putExtra("youtubeItemsJson", json);
-            }
-
-            // weatherKeyword 넘길 필요 없음
-            startActivity(intent);
-        });
+                startActivity(intent);
+            });
+        }
     }
 }
