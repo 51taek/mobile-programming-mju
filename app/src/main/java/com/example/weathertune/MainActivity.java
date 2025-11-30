@@ -638,8 +638,8 @@ public class MainActivity extends AppCompatActivity {
         // 진눈깨비
         if (d.contains("진눈깨비")) return "진눈깨비가 내려요";
 
-        // 안개 / 박무 / 흐린 안개
-        if (d.contains("안개") || d.contains("박무") || d.contains("mist") || d.contains("fog")) {
+        // 안개 / 박무 / 흐린 안개 / 연무
+        if (d.contains("안개") || d.contains("박무") || d.contains("연무") || d.contains("mist") || d.contains("fog")) {
             if (d.contains("옅은")) return "옅은 안개가 있어요";
             if (d.contains("짙은")) return "안개가 짙어요";
             return "안개가 조금 끼었어요";

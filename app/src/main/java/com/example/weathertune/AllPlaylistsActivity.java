@@ -198,8 +198,8 @@ public class AllPlaylistsActivity extends AppCompatActivity {
         // 진눈깨비
         if (d.contains("진눈깨비")) return "진눈깨비가 내리는 날씨";
 
-        // 안개 / 박무 / 흐린 안개
-        if (d.contains("안개") || d.contains("박무") || d.contains("mist") || d.contains("fog")) {
+        // 안개 / 박무 / 흐린 안개 / 연무
+        if (d.contains("안개") || d.contains("박무") || d.contains("연무") || d.contains("mist") || d.contains("fog")) {
             if (d.contains("옅은")) return "옅은 안개가 있는 날씨";
             if (d.contains("짙은")) return "안개가 짙은 날씨";
             return "안개가 조금 낀 날씨";
